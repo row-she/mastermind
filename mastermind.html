@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mastermind</title>
+    <link rel="stylesheet" href="mastermind.css">
+  </head>
+  <body>
+
+  <div id="board">
+    <h1 id="comment"></h1>
+    <table id="solution" border=1></table>
+    <table id="stage-board" border=1></table>
+    <br>
+    <div class="button-case">
+      <button id="retry" onclick="retry()">Retry</button>
+      <span></span><span></span>
+      <button id="commit" onclick="submitStage()">Commit</button>
+    </div>
+    <p>
+      - use mouse left / right click to change colors<br>
+      - click [commit] to have your guess checked<br>
+      - click [retry] to restart the game<br>
+      <br><br>
+      <input type="checkbox" id="allow-multiple" onclick="allowMultiple(this)" checked> allow one color to be used multiple times<br><br>
+      level: <select onchange="setLimit(this)" id="stage-selector">
+        <option value="16">Easy (16 Stages)</option>
+        <option value="12" selected="selected">Normal (12 Stages)</option>
+        <option value="8">Hard (8 Stages)</option>
+        <option value="5">Insane (5 Stages)</option>
+      </select>
+    </p>
+  </div>
+
+  <script src="mastermind.js" charset="utf-8"></script>
+  </body>
+</html>

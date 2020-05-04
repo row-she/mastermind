@@ -1,0 +1,38 @@
+body {font-family: sans-serif; font-size: 18px; background-color: #60993E;}
+
+#board {margin: 2em auto; width: 17em;}
+
+#comment {color: #111;}
+
+#solution {margin-bottom: 2em;}
+.solution-info {width: 5.2em; text-align: center;}
+
+table {background-color: #613A3A; border-color: #6F4C4C;}
+td {border-color: #6F4C4C;}
+
+.stage {text-align: center; padding: 0.2em; color: #4E2929;}
+.stage.active {color: #fff;}
+.response {width: 4em; height: 2em;}
+.guess {width: 2em; height: 2em; position: relative; box-sizing: border-box;}
+.guess::after {content: ""; width: 1.35em; height: 1.35em; position: absolute; top: 0.3em; left: 0.3em; border-radius: 50%; background-color: #4E2929}
+
+td[data-color="0"]::after{background: #FF4136;}
+td[data-color="1"]::after{background: #0074D9;}
+td[data-color="2"]::after{background: #2ECC40;}
+td[data-color="3"]::after{background: #FFDC00;}
+td[data-color="4"]::after{background: #886B6B;}
+td[data-color="5"]::after{background: #FF851B;}
+td[data-color="6"]::after{background: #111111;}
+td[data-color="7"]::after{background: #FFFFFF;}
+
+.pin {width: 0.5em; height: 0.5em; border-radius: 50%; margin-left: 0.28em; display: inline-block;}
+.pin.black {background-color: black;}
+.pin.white {background-color: white;}
+.pin.unset {background-color: #4E2929;}
+
+.button-case {display: flex;}
+.button-case button {flex: 1;}
+.button-case span {flex: 1;}
+#commit {float: right;}
+
+p {font-size: 0.8em;}
