@@ -215,6 +215,9 @@ function submitStage(){
     if(stage == game.activeStage)
     getStageData(stages[s])
   }
+  if(highscoreMode){
+    decScore(500)
+  }
 }
 
 function getStageData(node){
