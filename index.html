@@ -10,27 +10,52 @@
   <div id="board">
     <h1 id="comment"></h1>
     <table id="solution" border=1></table>
+    <div id="score-and-time">
+      <div id="score">
+        Score: <span id="score-display"></span>
+      </div>
+      <div id="timer">
+        Time: <label id="minutes">00</label>:<label id="seconds">00</label>
+      </div>
+    </div>
     <table id="stage-board" border=1></table>
     <br>
     <div class="button-case">
       <button id="retry" onclick="retry()">Retry</button>
-      <span></span><span></span>
+      <button id="give-up" onclick="gameOver(false)">Give up</button>
+      <span></span>
       <button id="commit" onclick="submitStage()">Commit</button>
     </div>
     <p>
-      - use mouse left / right click to change colors<br>
-      - click [commit] to have your guess checked<br>
-      - click [retry] to restart the game<br>
-      <br><br>
-      <input type="checkbox" id="allow-multiple" onclick="allowMultiple(this)" checked> allow one color to be used multiple times<br><br>
+      Note: use mouse left / right click to change colors<br>
+      <br>
+      <input type="checkbox" id="allow-multiple" onclick="allowMultiple(this)">allow one color to be used multiple times
+      <br><span class="has-hint" data-hint="( - 2000 pt if unchecked)"></span><br><br>
       level: <select onchange="setLimit(this)" id="stage-selector">
-        <option value="16">Easy (16 Stages)</option>
+        <option class="has-hint" data-hint="/ - 1000 pt" value="16">Easy (16 Stages)</option>
         <option value="12" selected="selected">Normal (12 Stages)</option>
-        <option value="8">Hard (8 Stages)</option>
-        <option value="5">Insane (5 Stages)</option>
+        <option class="has-hint" data-hint="/ + 1000 pt" value="8">Hard (8 Stages)</option>
+        <option class="has-hint" data-hint="/ + 2000 pt" value="5">Insane (5 Stages)</option>
       </select>
     </p>
   </div>
+
+  <div id="game-mode">
+    <button onclick="startGame('highscore')">Play Highscore</button><br><br>
+    <button onclick="startGame('normal')">Don't hassle me with time and score!</button>
+    <br><br>
+    <h2>Highscore Mode explained:</h2>
+    <ul>
+      <li>You <strong>start with 10000 points</strong> in <i>"Normal Mode"</i> and with <i>"allow one color to be used multiple times"</i> checked</li>
+      <li>For <strong>each level you go up</strong> (<i>"Hard"</i>, <i>"Insane"</i>) you <strong>gain 1000 points</strong></li>
+      <li>For <strong>each level you go down</strong> (<i>"Easy"</i>) you <strong>loose 1000 points</strong></li>
+      <li>For <strong>every minuted passed</strong> you <strong>loose 250 points</strong></li>
+      <li>For <strong>every new stage</strong> you <strong>loose 500 points</strong></li>
+      <li>If you <strong>uncheck <i>"allow one color to be used multiple times"</i></strong> you <strong>loose 2000 points</strong></li>
+    </ul>
+  </div>
+
+  <div id="highscore"></div>
 
   <script src="mastermind.js" charset="utf-8"></script>
   </body>

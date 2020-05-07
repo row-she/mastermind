@@ -1,12 +1,46 @@
 var board = document.getElementById('board')
 var stageBoard = document.getElementById('stage-board')
+var gameMode = document.getElementById('game-mode')
 var comment = document.getElementById('comment')
 var solution = document.getElementById('solution')
 var commitButton = document.getElementById('commit')
+var giveUpButton = document.getElementById('give-up')
 var stageSeletor = document.getElementById('stage-selector')
+var scoreAndTime = document.getElementById('score-and-time')
+var scoreDisplay = document.getElementById('score-display')
+var timer = document.getElementById('timer')
+var timerRun
+var minutesLabel = document.getElementById("minutes")
+var secondsLabel = document.getElementById("seconds")
+var totalSeconds = 0
+var totalMinutes = 0
 var game
+var score
+var allowMultipleBox = document.getElementById('allow-multiple')
 var multiMode = true
+allowMultipleBox.checked = true
 var limit = 12
+var highscoreMode = false
+solution.style.display = "none"
+stageSeletor.value = "12"
+
+function startGame(mode){
+  if(mode == "highscore"){
+    highscoreMode = true
+    scoreAndTime.style.display = 'flex'
+    let hintNodes = document.querySelectorAll('.has-hint')
+    for(h=0; h<hintNodes.length; h++){
+      let node = hintNodes[h]
+      let data = node.getAttribute("data-hint")
+      console.log(data);
+      let text = node.innerText
+      node.innerText = text + " " + data
+    }
+  }
+  init()
+  board.style.display = "block"
+  gameMode.style.display = "none"
+}
 
 function setLimit(node){
   limit = parseInt(node.value)
@@ -23,14 +57,39 @@ function allowMultiple(node){
   retry()
 }
 
-solution.style.display = "none"
-stageSeletor.value = "12"
+function cleanup(){
+  stageBoard.innerHTML = ""
+  comment.innerHTML = ""
+  if(comment.classList.contains("won")){
+    comment.classList.remove("won")
+  }
+  solution.innerHTML = ""
+  solution.style.display = "none"
+  commitButton.style.display = "inline"
+  giveUpButton.style.display = "inline"
+  if(highscoreMode){
+    secondsLabel.innerHTML = "00"
+    minutesLabel.innerHTML = "00"
+    totalSeconds = 0
+    clearInterval(timerRun)
+    scoreDisplay.innerHTML = ""
+  }
+}
 
+function retry(){
+  cleanup()
+  init()
+}
 
 function init(){
   game = {}
   game.goal = []
   game.activeStage = 0
+
+  if(highscoreMode){
+    score = getStartScore()
+    scoreDisplay.innerHTML = score
+  }
 
   for(i=0; i<5; i++){
     if(multiMode){
@@ -72,26 +131,11 @@ function init(){
   }
 
   showActiveStage(0)
-
-}
-
-function cleanup(){
-  stageBoard.innerHTML = ""
-  comment.innerHTML = ""
-  if(comment.classList.contains("won")){
-    comment.classList.remove("won")
+  if(highscoreMode){
+    startTimer()
   }
-  solution.innerHTML = ""
-  solution.style.display = "none"
-  commitButton.style.display = "inline"
-}
 
-function retry(){
-  cleanup()
-  init()
 }
-
-init();
 
 function showActiveStage(index){
   if(stageBoard.querySelector("td.stage.active") !== null){
@@ -284,6 +328,9 @@ function gameOver(success){
   }
   else {
     comment.innerHTML = "😵 GAME OVER!"
+    if(highscoreMode){
+      scoreDisplay.innerHTML = "0"
+    }
   }
   let row = document.createElement("tr")
   row.innerHTML = "<td class='solution-info'>Solution:</td>"
@@ -294,4 +341,64 @@ function gameOver(success){
   solution.appendChild(row)
   solution.style.display = "table"
   commitButton.style.display = "none"
+  giveUpButton.style.display = "none"
+  if(highscoreMode){
+    clearInterval(timerRun)
+  }
+}
+
+// HIGHSCORE MODE
+function getStartScore(){
+  let base = 10000
+  switch(limit){
+    case 16:
+      base = base-1000
+      break
+    case 8:
+      base = base+1000
+      break
+    case 5:
+      base = base+2000
+      break
+    default:
+      base = base
+  }
+  if(!multiMode){
+    base = base-2000
+  }
+  return base
+}
+
+// SCORE
+
+function decScore(points){
+  score = score - points
+  scoreDisplay.innerHTML = score
+}
+
+// TIMER
+
+function startTimer(){
+  timerRun = setInterval(setTime, 1000)
+
+  function setTime(){
+    ++totalSeconds
+    secondsLabel.innerHTML = pad(totalSeconds%60)
+    minutesLabel.innerHTML = pad(parseInt(totalSeconds/60))
+    if(parseInt(minutesLabel.innerHTML) == (totalMinutes + 1)){
+      totalMinutes++
+      decScore(250)
+    }
+  }
+
+
+  function pad(val){
+    var valString = val + ""
+    if(valString.length < 2){
+      return "0" + valString
+    }
+    else{
+      return valString
+    }
+  }
 }

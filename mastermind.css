@@ -1,8 +1,15 @@
 body {font-family: sans-serif; font-size: 18px; background-color: #60993E;}
 
-#board {margin: 2em auto; width: 17em;}
+#board {margin: 2em auto; width: 17em; display: none;}
+#game-mode {margin: 2em auto; width: 17em;}
+#game-mode ul {font-size: 0.8em; padding: 0; list-style-position: inside;}
+#game-mode ul li {margin-bottom: 1em;}
 
 #comment {color: #111;}
+.highscore-hint {display: none;}
+
+#score-and-time {display: none; margin-bottom: 1em;}
+#score, #timer {flex: 1;}
 
 #solution {margin-bottom: 2em;}
 .solution-info {width: 5.2em; text-align: center;}
@@ -32,7 +39,7 @@ td[data-color="7"]::after{background: #FFFFFF;}
 
 .button-case {display: flex;}
 .button-case button {flex: 1;}
-.button-case span {flex: 1;}
+.button-case span {flex: 2;}
 #commit {float: right;}
 
 p {font-size: 0.8em;}
