@@ -1,11 +1,11 @@
-body {font-family: sans-serif; font-size: 18px; background-color: #60993E;}
+body {font-family: sans-serif; font-size: 18px; background-color: #60993E; color: #111;}
+button:hover {cursor: pointer;}
 
 #board {margin: 2em auto; width: 17em; display: none;}
 #game-mode {margin: 2em auto; width: 17em;}
 #game-mode ul {font-size: 0.8em; padding: 0; list-style-position: inside;}
 #game-mode ul li {margin-bottom: 1em;}
 
-#comment {color: #111;}
 .highscore-hint {display: none;}
 
 #score-and-time {display: none; margin-bottom: 1em;}
@@ -42,4 +42,4 @@ td[data-color="7"]::after{background: #FFFFFF;}
 .button-case span {flex: 2;}
 #commit {float: right;}
 
-p {font-size: 0.8em;}
+p {font-size: 0.7em;}

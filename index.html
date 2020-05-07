@@ -26,9 +26,12 @@
       <span></span>
       <button id="commit" onclick="submitStage()">Commit</button>
     </div>
+    <p>Note: use mouse left / right click to change colors</p>
+      <div class="button-case">
+        <button onclick="window.location.reload()">Change Game Mode</button>
+        <button onclick="viewHighscore">View Highscore</button>
+      </div>
     <p>
-      Note: use mouse left / right click to change colors<br>
-      <br>
       <input type="checkbox" id="allow-multiple" onclick="allowMultiple(this)">allow one color to be used multiple times
       <br><span class="has-hint" data-hint="( - 2000 pt if unchecked)"></span><br><br>
       level: <select onchange="setLimit(this)" id="stage-selector">
